@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { ThemeContext } from '../contexts/theme';
 
@@ -13,7 +13,7 @@ export default function Footer(props) {
     return (
         <View style={sytles.container}>
             <Navbar />
-            <AddButton/>
+            <AddButton />
         </View>
     );
 }
@@ -30,8 +30,8 @@ const updateStyles = (theme) => StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: 'flex-end',
-        paddingBottom: 32,
+        alignItems: 'center',
+        paddingBottom: 24,
         paddingTop: 12,
     }
 })

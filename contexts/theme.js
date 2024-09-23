@@ -8,10 +8,8 @@ export const ThemeProvider = ({children}) => {
     const [theme, setTheme] = useState('light');
     const [appTheme, setAppTheme] = useState('auto');
 
-    // On load
     useEffect(() => {loadTheme()}, []);
 
-    // On appTheme change
     useEffect(() => {
         if (appTheme === 'auto') {
             const sub = Appearance.addChangeListener(({ colorScheme }) => setTheme(colorScheme));

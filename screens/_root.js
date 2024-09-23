@@ -1,19 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { CurrentScreen } from '../contexts/screen';
 import Footer from '../components/footer'
-import HomeScreen from './home';
 
 export default function Root() {
-  const [screen, setScreen] = useState(HomeScreen());
-  const [notifs, setNotifs] = useState([]);
-
   return (
     <View style={styles.container}>
-      {screen}
+      <CurrentScreen />
       <Footer />
-      <StatusBar style='auto' />
+      <StatusBar style='dark'/>
     </View>
   );
 }

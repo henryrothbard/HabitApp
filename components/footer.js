@@ -31,7 +31,7 @@ const updateStyles = (theme) => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        paddingBottom: 24,
-        paddingTop: 12,
+        paddingBottom: 20,
+        paddingTop: 10,
     }
-})
+});

@@ -4,7 +4,7 @@ import { ThemeContext } from '../contexts/theme';
 import { Ionicons } from '@expo/vector-icons';
 
 const size = 64;
-const iconSize = 36;
+const iconSize = 42;
 
 export default function AddButton(props) {
     const { theme } = useContext(ThemeContext)

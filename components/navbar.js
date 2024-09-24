@@ -10,7 +10,7 @@ const iconSize = 28;
 const selectionSize = 48;
 const barHeight = 56;
 const padding = (barHeight - selectionSize) / 2;
-const selectionDuration = 50;
+const selectionDuration = 83;
 
 export default function Navbar() {
     const { theme } = useContext(ThemeContext);

@@ -13,12 +13,12 @@ export default function Footer(props) {
     const { theme } = useContext(ThemeContext);
     const { ModalController } = useContext(ModalContext);
     const { screenId } = useContext(ScreenContext);
-    const sytles = useMemo(() => updateStyles(theme), [theme]);
+    const styles = useMemo(() => updateStyles(theme), [theme]);
 
     const [btnLayout, setBtnLayout] = useState();
 
     return (
-        <View style={sytles.container}>
+        <View style={styles.container}>
             <Navbar />
             <AddButton 
                 onPress={

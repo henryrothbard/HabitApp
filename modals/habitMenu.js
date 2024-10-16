@@ -8,7 +8,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import AddButton from "../components/addButton";
 
-export function HabitMenu({id, controller, btnPos}) {
+export function HabitMenu(props) {
+    const { id, controller, btnPos } = props;
+
     const { theme } = useContext(ThemeContext)
     const styles = useMemo(() => updateStyles(theme), [theme]);
 
@@ -28,12 +30,12 @@ export function HabitMenu({id, controller, btnPos}) {
         ]
     }});
 
-    const close = () => {
-        rotation.value = withTiming(0, {duration: 150}, () => runOnJS(controller.pop)(id));
+    const close = (dur=150) => {
+        rotation.value = withTiming(0, {duration: dur}, () => runOnJS(controller.pop)(id));
     }   
 
     return (
-    <ModalWrapper controller={controller} id={id} style={styles.wrapper} onPress={close}>
+    <ModalWrapper {...props} style={styles.wrapper} onPress={() => close(10)}>
         <BlurView style={styles.container} intensity={5}>
             <ScrollView contentContainerStyle={styles.scroll}>
                 <TouchableOpacity>
@@ -46,7 +48,7 @@ export function HabitMenu({id, controller, btnPos}) {
                 ))}
             </ScrollView>
             <Animated.View style={[styles.btnContainer, btnAnim]}>
-                <AddButton onPress={close}/>
+                <AddButton onPress={() => close(150)}/>
             </Animated.View>
         </BlurView>
     </ModalWrapper>

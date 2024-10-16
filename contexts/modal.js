@@ -1,10 +1,11 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
+import { AuthModal } from "../modals/authModals";
 
 export const ModalContext = createContext();
 
 export const ModalProvider = ({children}) => {
-    const [activeModals, setActiveModals] = useState([]);
+    const [activeModals, setActiveModals] = useState([AuthModal]);
     const ModalController = useMemo(() => ({
         pop: (id) => {
             setActiveModals(prev => {

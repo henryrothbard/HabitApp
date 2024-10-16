@@ -1,19 +1,24 @@
-import React, { useContext, useMemo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useContext, useMemo, useState } from 'react';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { ThemeContext } from '../contexts/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { ModalContext } from '../contexts/modal';
 
 const size = 64;
 const iconSize = 42;
 
 export default function AddButton(props) {
-    const { theme } = useContext(ThemeContext)
-    const sytles = useMemo(() => updateStyles(theme), [theme]);
+    const { theme } = useContext(ThemeContext);
+    const { ModalController } = useContext(ModalContext);
+    const styles = useMemo(() => updateStyles(theme), [theme]);
 
     return (
-        <View style={sytles.container}>
+        <Pressable style={styles.container} 
+            onPress={props.onPress}
+            onLayout={props.onLayout}
+        >
             <Ionicons name='add-outline' size={iconSize} color={'#fff'} />
-        </View>
+        </Pressable>
     );
 }
 

@@ -1,11 +1,10 @@
-import React, { act, createContext, useCallback, useContext, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { TestModal, TestModal2 } from "../modals/test";
 
 export const ModalContext = createContext();
 
 export const ModalProvider = ({children}) => {
-    const [activeModals, setActiveModals] = useState([TestModal, TestModal2]);
+    const [activeModals, setActiveModals] = useState([]);
     const ModalController = useMemo(() => ({
         pop: (id) => {
             setActiveModals(prev => {
@@ -58,9 +57,8 @@ export const ModalProvider = ({children}) => {
 
 export const Modals = () => {
     const { activeModals, ModalController } = useContext(ModalContext);
-    if (!activeModals.length) return null;
-
     const clearModals = useCallback(() => ModalController.clear(-1), [ModalController]);
+    if (!activeModals.length) return null;
 
     return (
         <Pressable style={styles.bg} onPress={clearModals}>   

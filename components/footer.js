@@ -1,19 +1,36 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { ThemeContext } from '../contexts/theme';
 
 import Navbar from './navbar';
 import AddButton from './addButton';
+import { ModalContext } from '../contexts/modal';
+import { HabitMenu } from '../modals/habitMenu';
+import { ScreenContext, Screens } from '../contexts/screen';
 
 export default function Footer(props) {
-    const { theme } = useContext(ThemeContext)
+    const { theme } = useContext(ThemeContext);
+    const { ModalController } = useContext(ModalContext);
+    const { screenId } = useContext(ScreenContext);
     const sytles = useMemo(() => updateStyles(theme), [theme]);
+
+    const [btnLayout, setBtnLayout] = useState();
 
     return (
         <View style={sytles.container}>
             <Navbar />
-            <AddButton />
+            <AddButton 
+                onPress={
+                    () => {
+                        if (screenId === 1) return;
+                        ModalController.push(p=>(<HabitMenu {...p} btnPos={btnLayout}/>))
+                    }
+                } 
+                onLayout={
+                    (e) => setBtnLayout(e.nativeEvent.layout)
+                }
+            />
         </View>
     );
 }

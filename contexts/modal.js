@@ -1,11 +1,11 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { Pressable, StyleSheet } from "react-native";
-import { AuthModal } from "../modals/authModals";
+import { Pressable, StyleSheet, View } from "react-native";
+import { LoginModal } from "../modals/authModals";
 
 export const ModalContext = createContext();
 
 export const ModalProvider = ({children}) => {
-    const [activeModals, setActiveModals] = useState([AuthModal]);
+    const [activeModals, setActiveModals] = useState([LoginModal]);
     const ModalController = useMemo(() => ({
         pop: (id) => {
             setActiveModals(prev => {
@@ -62,18 +62,19 @@ export const Modals = () => {
     if (!activeModals.length) return null;
 
     return (
-        <Pressable style={styles.bg} onPress={clearModals}>   
-        {activeModals.map((Modal, id) => (
-            <Modal 
-                key={id} 
-                id={id} 
-                controller={ModalController} 
-            />
-        ))}
-        </Pressable>
+        <View style={styles.bg}>
+            <Pressable style={styles.bg} onPress={clearModals}></Pressable>  
+            {activeModals.map((Modal, id) => (
+                <Modal 
+                    key={id} 
+                    id={id} 
+                    controller={ModalController} 
+                />
+            ))}
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    bg: {position: 'absolute', height: '100%', width: '100%'}
+    bg: {position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}
 });

@@ -8,7 +8,7 @@ export function AuthModalWrapper(props) {
     return (
         <ModalWrapper {...props} style={props.styles.wrapper} onPress={() => Keyboard.dismiss()}>
             <SafeAreaView style={{flex: 1}}>
-                <Text style={props.styles.header}>app name</Text>
+                <Text style={props.styles.header}>FEIN</Text>
                 <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                     <View style={props.styles.container}>
                         {props.children}
@@ -42,7 +42,7 @@ export function LoginModal(props) {
                 autoCorrect="false" 
                 secureTextEntry="true" />
 
-            <TouchableOpacity style={styles.link}>
+            <TouchableOpacity style={{marginTop: -10}}>
                 <Text style={styles.linkText}>Forgot your password?</Text>
             </TouchableOpacity>
 
@@ -54,14 +54,91 @@ export function LoginModal(props) {
             <TouchableOpacity style={styles.submitBtn}>
                 <Text style={styles.submitBtnText}>Submit</Text>
             </TouchableOpacity>
+
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.linkText}>
+                    Don't have an account?
+                </Text>
+                <TouchableOpacity onPress={()=>props.controller.push(SignupModal)}>
+                    <Text style={styles.linkText}> Sign up</Text>
+                </TouchableOpacity>
+            </View>
         </AuthModalWrapper>
     )
 }
 
-// export function SignupModal({}) {
-//     return (
-//     );
-// }
+function SignupEmailPass({styles, setState}) {
+    return (
+        <View>
+            <Text style={styles.inputHeader}>Email</Text>
+            <TextInput style={styles.inputBox} 
+                autoComplete="false" 
+                autoCapitalize="false" 
+                autoCorrect="false"/>
+            <Text style={styles.inputHeader}>Password</Text>
+            <TextInput style={styles.inputBox} 
+                autoComplete="false"
+                autoCapitalize="false" 
+                autoCorrect="false" 
+                secureTextEntry="true" />
+            <Text style={styles.inputHeader}>Re-type Password</Text>
+            <TextInput style={styles.inputBox} 
+                autoComplete="false"
+                autoCapitalize="false" 
+                autoCorrect="false" 
+                secureTextEntry="true" />
+            <TouchableOpacity style={styles.submitBtn} onPress={() => setState(1)}>
+                <Text style={styles.submitBtnText}>Next</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+function SignupNames({styles, finish}) {
+    return (
+        <View>
+            <Text style={styles.inputHeader}>Username</Text>
+            <TextInput style={styles.inputBox} 
+                autoComplete="false" 
+                autoCapitalize="false" 
+                autoCorrect="false"/>
+            <Text style={styles.inputHeader}>Display Name</Text>
+            <TextInput style={styles.inputBox} 
+                autoComplete="false"
+                autoCapitalize="false" 
+                autoCorrect="false" />
+            
+            <Text style={[styles.inputHeader, {textAlign: 'center'}]}>Don't worry you can always change these later.</Text>
+            <TouchableOpacity style={styles.submitBtn} onPress={finish}>
+                <Text style={styles.submitBtnText}>Submit</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
+export function SignupModal(props) {
+    const { theme } = useContext(ThemeContext);
+    const styles = useMemo(() => updateStyles(theme), [theme]);
+    const [signUpState, setSignUpState] = useState(0);
+
+    return (
+        <AuthModalWrapper {...props} styles={styles}>
+            <Text style={styles.subheader}>Sign Up</Text>
+            { signUpState === 0 ? 
+                (<SignupEmailPass styles={styles} setState={setSignUpState}/>) : 
+                (<SignupNames styles={styles}  finish={() => props.controller.pop(props.id)}/>)
+            }
+            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.linkText}>
+                    Already have an account?
+                </Text>
+                <TouchableOpacity onPress={()=>props.controller.pop(props.id)}>
+                    <Text style={styles.linkText}> Sign In</Text>
+                </TouchableOpacity>
+            </View>
+        </AuthModalWrapper>
+    );
+}
 
 const updateStyles = () => StyleSheet.create({
     wrapper: {
@@ -80,13 +157,13 @@ const updateStyles = () => StyleSheet.create({
         paddingLeft: 40,
         paddingRight: 40,
         marginHorizontal: 20,
-        marginTop: 80,
+        marginTop: 20,
     },
     header: {
         fontSize: 42,
         alignSelf: 'center',
         fontFamily: 'AfacadFlux-SemiBold',
-        margin: 0,
+        marginTop: 20,
         letterSpacing: -0.5,
     },
     subheader: {
@@ -114,7 +191,7 @@ const updateStyles = () => StyleSheet.create({
     },
     linkText: {
         fontFamily: 'AfacadFlux-Light',
-        fontSize: 14,
+        fontSize: 15,
     },
     submitBtn: {
         alignSelf: 'center',

@@ -8,6 +8,7 @@ import AddButton from './addButton';
 import { ModalContext } from '../contexts/modal';
 import { HabitMenu } from '../modals/habitMenu';
 import { ScreenContext, Screens } from '../contexts/screen';
+import { NewOccurrenceModal } from '../modals/newOccurrence';
 
 export default function Footer(props) {
     const { theme } = useContext(ThemeContext);
@@ -23,8 +24,8 @@ export default function Footer(props) {
             <AddButton 
                 onPress={
                     () => {
-                        if (screenId === 1) return;
-                        ModalController.push(p=>(<HabitMenu {...p} btnPos={btnLayout}/>))
+                        if (screenId === 1) ModalController.push(NewOccurrenceModal);
+                        else ModalController.push(p=>(<HabitMenu {...p} btnPos={btnLayout}/>))
                     }
                 } 
                 onLayout={

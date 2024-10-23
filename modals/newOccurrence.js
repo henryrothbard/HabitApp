@@ -5,7 +5,7 @@ import ModalWrapper from "./wrapper";
 import { TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const iconSize = 30;
+const iconSize = 28;
 
 export function NewOccurrenceModal(props) {
     const { theme } = useContext(ThemeContext);
@@ -22,14 +22,16 @@ export function NewOccurrenceModal(props) {
         <ModalWrapper {...props} style={styles.wrapper} onPress={() => props.controller.pop(props.id)}>
             <SafeAreaView style={{flex: 1}}>
                 <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                    <Text style={styles.titleText}>Habit</Text>
+                    <Text style={styles.titleText}>{props.habitName || '--UNK--'}</Text>
+                    <Text style={styles.subtitleText}>New Entry</Text>
                     <View style={styles.inputContainer}>
                         <TextInput 
                             style={styles.inputBox} 
                             ref={inputRef}
-                            multiline={true} />
+                            multiline={true}
+                            placeholder="Type a reason..." />
                         <TouchableOpacity style={styles.sendBtnContainer}>
-                            <Ionicons name='arrow-up' size={iconSize} color={'#fff'}/>
+                            <Ionicons name='checkmark' size={iconSize} color={'#fff'}/>
                         </TouchableOpacity>
                     </View>
                 </KeyboardAvoidingView>
@@ -45,7 +47,7 @@ const updateStyles = theme => StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: '#ddddddee',
+        backgroundColor: '#dddddd',
     },
     titleText: {
         margin: 10,
@@ -53,22 +55,31 @@ const updateStyles = theme => StyleSheet.create({
         fontSize: 32,
         fontFamily: 'AfacadFlux-Bold',
     },
+    subtitleText: {
+        marginTop: -10,
+        textAlign: 'center',
+        fontSize: 21,
+        fontFamily: 'AfacadFlux-Light',
+    },
     inputContainer: {
+        marginHorizontal: 5,
         flex: 1,
         alignItems: 'flex-end',
         flexDirection: 'row',
+        justifyContent: 'flex-start'
     },
     inputBox: {
+        maxWidth: '80%',
+        minHeight: 40,
         flexGrow: 1,
         margin: 10,
         paddingVertical: 10,
         paddingHorizontal: 15,
-        //borderWidth: 1,
         borderColor: '#aaa',
         borderRadius: 20,
         fontSize: 16,
         fontFamily: 'AfacadFlux-Regular',
-        backgroundColor: '#ccc'
+        backgroundColor: '#ccc',
     },
     sendBtnContainer: {
         borderWidth: 1,

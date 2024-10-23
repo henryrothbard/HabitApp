@@ -16,8 +16,8 @@ CREATE INDEX idx_occurred_at ON occurrences (occurred_at);
 `);
 
 const doAsync = (fn) => (...p) => Promise.resolve(fn(...p))
-.then((res) => [res, null])
-.catch((err) => { console.error(err); return [null, err] });
+    .then((res) => [res, null])
+    .catch((err) => { console.error(err); return [null, err] });
 
 const formatDate = (date) => date.toISOString().slice(0, 19).replace('T', ' ');
 

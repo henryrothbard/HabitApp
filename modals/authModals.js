@@ -8,7 +8,7 @@ export function AuthModalWrapper(props) {
     return (
         <ModalWrapper {...props} style={props.styles.wrapper} onPress={() => Keyboard.dismiss()}>
             <SafeAreaView style={{flex: 1}}>
-                <Text style={props.styles.header}>FEIN</Text>
+                <Text style={props.styles.header}>app</Text>
                 <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                     <View style={props.styles.container}>
                         {props.children}

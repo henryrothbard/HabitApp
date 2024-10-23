@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
+import { LoginModal } from "../modals/authModals";
 
 export const ModalContext = createContext();
 
